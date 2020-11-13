@@ -12,7 +12,17 @@ class ToDo {
     this.id = todo.id;
   }
 
-  getToDo() {}
+  getToDo() {
+    return `<li class="todo__item">
+      <button class="todo__button todo__button--delete">delete</button>
+      <button class="todo__button todo__button--edit"></button>
+      <button class="todo__button todo__button--add"></button>
+      <span class="todo__text">${this.task}</span>
+    </li>`;
+  }
+  getEl() {
+    return document.querySelector(".todo__item");
+  }
 }
 
 class ToDoList {
@@ -62,7 +72,13 @@ class ToDoList {
     event.preventDefault();
     let todo = new ToDo(this.getFormData());
     this.lastId++;
+    this.printTodo(todo);
+    todo.el = todo.getEl();
     this.toDos.push(todo);
     console.log(this.toDos);
+  }
+  printTodo(todo) {
+    let list = document.querySelector(".todo__list");
+    list.insertAdjacentHTML("afterbegin", todo.getToDo());
   }
 }
