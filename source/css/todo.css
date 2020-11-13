@@ -1,0 +1,116 @@
+html,
+body {
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+.todolist {
+  width: 400px;
+  height: 95%;
+  border: 1px solid red;
+}
+.todolist__title {
+  min-height: 20%;
+  font-size: 20px;
+  border: 2px solid red;
+  border-bottom: 2px dotted red;
+  border-radius: 10px 10px 0px 0px;
+}
+.todolist__titletext {
+  font-family: "Courier New", Courier, monospace;
+  color: blue;
+  text-align: center;
+  padding-left: 0px;
+}
+.todolist__menu {
+  min-height: 20%;
+  border: 2px solid red;
+  border-top: 2px dotted red;
+  border-radius: 0px 0px 10px 10px;
+}
+.todolist__button {
+}
+.todolist__button--add {
+}
+.todolist__button--clear {
+}
+/* 
+
+*/
+.todo {
+  min-height: 60%;
+  border: 2px solid red;
+  border-top: 2px dotted red;
+  border-bottom: 2px dotted red;
+}
+.todo__list {
+}
+.todo__item {
+}
+.todo__button {
+}
+.todo__button--delete {
+}
+.todo__button--edit {
+}
+.todo__button--add {
+}
+.todo__text {
+}
+/* 
+
+*/
+.wraper {
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  position: absolute;
+  left: 50%;
+  top: 150px;
+  z-index: 2;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+.form {
+  width: 100%;
+  height: 100%;
+}
+.form__element {
+  width: 100%;
+  height: 25%;
+}
+.form__exit {
+}
+.form__textinput {
+  box-sizing: border-box;
+  width: 85%;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+.form__textarea {
+  box-sizing: border-box;
+  width: 85%;
+  height: 90%;
+  margin-left: 10px;
+}
+.form__explaintext {
+  margin-left: 80px;
+}
+.form__explaintext--importance {
+}
+.form__checkbox {
+}
+
+.form__button {
+  margin-left: 50px;
+}
+.form__button--submit {
+}
+.form__button--reset {
+}
+.form__button--cancel {
+  margin-left: 235px;
+  margin-top: 5px;
+}

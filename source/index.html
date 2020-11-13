@@ -9,11 +9,11 @@
 <body>
     <div class="todolist">
         <div class="todolist__title">
-            <H2 class="todolist__titletext"></H2>
+            <H2 class="todolist__titletext">To- Do list</H2>
         </div>
         <div class="todo">
             <ul class="todo__list">
-                <!-- <li class="todo_item">
+                <!-- <li class="todo__item">
                     <button class="todo__button todo__button--delete"></button>
                     <button class="todo__button todo__button--edit"></button>
                     <button class="todo__button todo__button--add"></button>
@@ -22,17 +22,29 @@
             </ul>
         </div>
         <div class="todolist__menu">
-            <button class="todolist__button todolist__button--add"></button>
-            <button class="todolist__button todolist__button--clear"></button>
+            <button class="todolist__button todolist__button--add">add task</button>
+            <button class="todolist__button todolist__button--clear">clear all</button>
         </div>
     </div>
     <div class="wraper">
-        <form action="#" method="post" name="form" enctype="multipart/form-data" >
-            <input type="text" name="" id="" placeholder="Задание" tabindex="1">
-            <textarea name="" id="" placeholder="Описание" tabindex="2"></textarea>
-            <span>Галочка, если важное:</span>
-            <input type="checkbox" name="" id="" tabindex="3">
-            <input type="submit" value="" tabindex="4">
+        <form class="form" action="#" method="post" name="form" enctype="multipart/form-data" >
+            <div class="form__exit">
+                <input class="form__button form__button--cancel" type="button" value="Сancel">
+            </div>
+            <div class="form__element">
+                <input class="form__textinput" type="text" name="task" id="" placeholder="Задание" autofocus tabindex="1">
+            </div>
+            <div class="form__element">
+                <textarea class="form__textarea" name="discription" id="" placeholder="Описание" tabindex="2"></textarea>
+            </div>
+            <div class="form__element">
+                <span class="form__explaintext form__explaintext--importance">Галочка, если важное:</span>
+                <input class="form__checkbox" type="checkbox" name="importance" id="" checked tabindex="3">
+            </div>
+            <div class="form__element">
+                <input class="form__button form__button--submit" type="submit" value="Create" tabindex="4">
+                <input class="form__button form__button--reset" type="reset" value="Reset" tabindex="5">
+            </div>
         </form>
     </div>
 
