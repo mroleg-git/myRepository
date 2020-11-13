@@ -4,7 +4,7 @@ window.onload = function () {
 };
 //event.preventDefault()
 class ToDo {
-  toDolayout = undefined;
+  el = undefined;
   constructor(todo) {
     this.task = todo.task;
     this.discription = todo.discription;
@@ -34,8 +34,7 @@ class ToDoList {
     this.eventHandler();
     //this.hideForm();
   }
-  getFormData(event) {
-    event.preventDefault();
+  getFormData() {
     let data = {
       task: this.toDoForm.task.value,
       discription: this.toDoForm.discription.value,
@@ -60,7 +59,8 @@ class ToDoList {
     this.toDoForm.reset();
   }
   createToDo(event) {
-    let todo = new ToDo(this.getFormData(event));
+    event.preventDefault();
+    let todo = new ToDo(this.getFormData());
     this.lastId++;
     this.toDos.push(todo);
     console.log(this.toDos);
