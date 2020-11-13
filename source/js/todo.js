@@ -32,7 +32,7 @@ class ToDoList {
   }
   init() {
     this.eventHandler();
-    this.hideForm();
+    //this.hideForm();
   }
   getFormData(event) {
     event.preventDefault();
@@ -43,7 +43,7 @@ class ToDoList {
       id: this.lastId,
     };
     this.clearForm();
-    this.hideForm();
+    //this.hideForm();
     return data;
   }
   showForm() {
