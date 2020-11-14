@@ -13,7 +13,7 @@ class ToDo {
   }
 
   getToDo() {
-    return `<li class="todo__item">
+    return `<li class="todo__item" data-taskid="${this.id}">
       <button class="todo__button todo__button--delete">delete</button>
       <button class="todo__button todo__button--edit"></button>
       <button class="todo__button todo__button--add"></button>
@@ -39,6 +39,10 @@ class ToDoList {
     document
       .querySelector(".js-form-submit")
       .addEventListener("click", this.createToDo.bind(this));
+
+    document
+      .querySelector(".js-todo-list")
+      .addEventListener("click", this.deleteToDo.bind(this));
   }
   init() {
     this.eventHandler();
@@ -75,10 +79,26 @@ class ToDoList {
     this.printTodo(todo);
     todo.el = todo.getEl();
     this.toDos.push(todo);
-    console.log(this.toDos);
+    //console.log(this.toDos);
   }
   printTodo(todo) {
-    let list = document.querySelector(".todo__list");
+    let list = document.querySelector(".js-todo-list");
     list.insertAdjacentHTML("afterbegin", todo.getToDo());
+  }
+  deleteToDo(event) {
+    let eventSender = event.target;
+    if (eventSender.tagName == "BUTTON") {
+      let elem = eventSender.closest("li");
+      let id = elem.dataset.taskid;
+      console.log(id);
+      elem.remove();
+      this.deleteFromToDos(id);
+      console.log(this.toDos);
+    }
+  }
+  deleteFromToDos(id) {
+    this.toDos = this.toDos.filter(function (item) {
+      return item.id != id;
+    });
   }
 }
