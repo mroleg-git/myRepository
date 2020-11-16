@@ -4,7 +4,7 @@ window.onload = function () {
 };
 //event.preventDefault()
 class ToDo {
-  el = undefined;
+  el = null;
   constructor(todo) {
     this.task = todo.task;
     this.discription = todo.discription;
@@ -12,16 +12,16 @@ class ToDo {
     this.id = todo.id;
   }
 
-  getToDo() {
-    return `<li class="todo__item" data-taskid="${this.id}">
-      <button class="todo__button todo__button--delete">delete</button>
-      <button class="todo__button todo__button--edit"></button>
-      <button class="todo__button todo__button--add"></button>
+  ToDoHtml() {
+    return `<li class="todo__item" data-todoid="${this.id}">
+      <button class="todo__button todo__button--delete js-deletetodo-btn" data-deleteid="${this.id}">delete</button>
+      <button class="todo__button todo__button--edit js-edittodo-btn">edit</button>
+      <button class="todo__button todo__button--add js-addtodo-btn">add</button>
       <span class="todo__text">${this.task}</span>
     </li>`;
   }
   getEl() {
-    return document.querySelector(".todo__item");
+    return this.el;
   }
 }
 
@@ -30,6 +30,7 @@ class ToDoList {
   constructor(event) {
     this.toDos = [];
     this.lastId = 0;
+    this.toDoList = document.querySelector(".js-todo-list");
   }
   eventHandler() {
     document
@@ -40,9 +41,7 @@ class ToDoList {
       .querySelector(".js-form-submit")
       .addEventListener("click", this.createToDo.bind(this));
 
-    document
-      .querySelector(".js-todo-list")
-      .addEventListener("click", this.deleteToDo.bind(this));
+    this.toDoList.addEventListener("click", this.toDoEventHandler.bind(this));
   }
   init() {
     this.eventHandler();
@@ -72,29 +71,43 @@ class ToDoList {
   clearForm() {
     this.toDoForm.reset();
   }
+
   createToDo(event) {
     event.preventDefault();
     let todo = new ToDo(this.getFormData());
-    this.lastId++;
     this.printTodo(todo);
-    todo.el = todo.getEl();
+    todo.el = this.getToDoById(this.lastId);
+    this.lastId++;
     this.toDos.push(todo);
     //console.log(this.toDos);
   }
   printTodo(todo) {
-    let list = document.querySelector(".js-todo-list");
-    list.insertAdjacentHTML("afterbegin", todo.getToDo());
+    this.toDoList.insertAdjacentHTML("afterbegin", todo.ToDoHtml());
   }
-  deleteToDo(event) {
+  getToDoById(id) {
+    let allToDo = document.querySelectorAll(".todo__item");
+    let toDoListElement;
+    allToDo.forEach((element) => {
+      if (element.dataset.todoid == id) {
+        toDoListElement = element;
+      }
+    });
+    return toDoListElement;
+  }
+  toDoEventHandler(event) {
     let eventSender = event.target;
-    if (eventSender.tagName == "BUTTON") {
-      let elem = eventSender.closest("li");
-      let id = elem.dataset.taskid;
-      console.log(id);
-      elem.remove();
-      this.deleteFromToDos(id);
-      console.log(this.toDos);
+    if (eventSender.classList.contains("js-deletetodo-btn")) {
+      this.deleteToDo(eventSender);
+    } else if (eventSender.classList.contains("js-edittodo-btn")) {
+      console.log("edit");
+    } else if (eventSender.classList.contains("js-addtodo-btn")) {
+      console.log("add");
     }
+  }
+  deleteToDo(eventSender) {
+    let elem = this.getToDoById(eventSender.dataset.deleteid);
+    elem.remove();
+    this.deleteFromToDos(elem.dataset.todoid);
   }
   deleteFromToDos(id) {
     this.toDos = this.toDos.filter(function (item) {
