@@ -2,7 +2,7 @@ window.onload = function () {
   toDoList = new ToDoList();
   toDoList.init();
 };
-//event.preventDefault()
+
 class ToDo {
   el = null;
   constructor(todo) {
@@ -11,7 +11,6 @@ class ToDo {
     this.importance = todo.importance;
     this.id = todo.id;
   }
-
   ToDoHtml() {
     return `<li class="todo__item" data-todoid="${this.id}">
       <button class="todo__button todo__button--delete js-deletetodo-btn" data-deleteid="${this.id}">delete</button>
