@@ -1,0 +1,19 @@
+{
+  "name": "my-npm-projekt",
+  "version": "1.0.0",
+  "description": "1st commit test кирилица",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mroleg-git/myRepository.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mroleg-git/myRepository/issues"
+  },
+  "homepage": "https://github.com/mroleg-git/myRepository#readme"
+}
