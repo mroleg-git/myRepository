@@ -1,4 +1,6 @@
 console.log("qwe");
-import { flog, flogtodo } from "C:/gitHabToDo/myRepository/source/js/index.js";
-flog();
+import { man, flogtodo } from "C:/gitHabToDo/myRepository/source/js/index.js";
+//flog();
 flogtodo();
+let persone = new man();
+console.log(persone.getInfo());

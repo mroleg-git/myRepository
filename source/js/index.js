@@ -1,15 +1,19 @@
 export { flogtodo } from "C:/gitHabToDo/myRepository/source/js/todo.js";
-// export class man {
-//   lastname = "userlastname";
-//   getInfo() {
-//     //let person = new user();
-//     return this.lastname; //+ person.getName();
-//   }
-// }
+export class man {
+  //x = 0;
+  constructor() {
+    this.lastname = "userlastname";
+  }
 
-export function flog() {
-  console.log("hello");
+  getInfo() {
+    //let person = new user();
+    return this.lastname; //+ person.getName();
+  }
 }
+
+// export function flog() {
+//   console.log("hello");
+// }
 
 // window.onload = function () {
 //   toDoList = new ToDoList();
