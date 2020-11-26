@@ -1,9 +1,10 @@
 //import { ToDoList } from "./ToDoList";
 
-window.onload = function () {
-  toDoList = new ToDoList();
-  toDoList.init();
-};
+// window.onload = function () {
+//   toDoList = new ToDoList();
+//   toDoList.init();
+// };
+console.log("hello");
 
 class ToDo {
   el = null;
