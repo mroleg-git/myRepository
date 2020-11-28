@@ -1,6 +1,15 @@
 export function flogtodo() {
   console.log("hello from todo");
 }
+export class user {
+  userName;
+  constructor() {
+    this.userName = "username";
+  }
+  getUserName() {
+    return this.userName;
+  }
+}
 // class ToDo {
 //   el = null;
 //   constructor(todo) {

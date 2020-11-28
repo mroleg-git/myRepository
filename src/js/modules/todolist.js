@@ -1,12 +1,13 @@
 export { flogtodo } from "./todo.js";
+import { user } from "./todo.js";
 export class man {
-  //x = 0;
+  lastname = "";
   constructor() {
     this.lastname = "userlastname";
   }
 
   getInfo() {
-    //let person = new user();
-    return this.lastname; //+ person.getName();
+    let person = new user();
+    return this.lastname + " _ " + person.getUserName();
   }
 }

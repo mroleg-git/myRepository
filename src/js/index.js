@@ -1,9 +1,8 @@
-console.log("qhhhkke");
+console.log("index");
 import {
   man,
   flogtodo,
 } from "/gitHabToDo/myRepository/src/js/modules/todolist.js";
-//flog();
 flogtodo();
 let persone = new man();
 console.log(persone.getInfo());
