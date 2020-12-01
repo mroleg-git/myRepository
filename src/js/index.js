@@ -1,16 +1,9 @@
-console.log("index");
-import {
-  man,
-  flogtodo,
-} from "/gitHabToDo/myRepository/src/js/modules/todolist.js";
-flogtodo();
-let persone = new man();
-console.log(persone.getInfo());
+import { ToDoList } from "/gitHabToDo/myRepository/src/js/modules/todolist.js";
 
-// window.onload = function () {
-//   toDoList = new ToDoList();
-//   toDoList.init();
-// };
+window.onload = function () {
+  let toDoList = new ToDoList();
+  toDoList.init();
+};
 
 // class ToDo {
 //   el = null;

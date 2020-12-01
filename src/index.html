@@ -34,13 +34,19 @@
             </div>
             <div class="form__element">
                 <input class="form__textinput" type="text" name="task" id="" placeholder="Задание" autofocus tabindex="1">
+                <br>
+                <span class="form__mark form__mark--task js-form-taskvalidmark"> </span>
             </div>
             <div class="form__element">
                 <textarea class="form__textarea" name="discription" id="" placeholder="Описание" tabindex="2"></textarea>
+                <br>
+                <span class="form__mark form__mark--task js-form-discriptionvalidmark">*Описание не должно быть короче трех символов</span>
             </div>
             <div class="form__element">
-                <span class="form__explaintext form__explaintext--importance">Галочка, если важное:</span>
-                <input class="form__checkbox" type="checkbox" name="importance" id="" checked tabindex="3">
+                <label class="form__explaintext form__explaintext--importance">
+                    Галочка, если важное:
+                    <input class="form__checkbox" type="checkbox" name="importance" id="" checked tabindex="3">
+                </label>
             </div>
             <div class="form__element">
                 <input class="form__button form__button--submit js-form-submit" type="submit" value="Create" tabindex="4">
@@ -48,10 +54,5 @@
             </div>
         </form>
     </div>
-    <!-- <script src="/dist/main.js"></script> -->
-    <!-- <script type="module" src="/source/js/todo.js"></script>
-    <script type="module" src="/source/js/ToDoList.js"></script> -->
-    <!-- <script src="C:\gitHabToDo\myRepository\source\js\index.js"></script> -->
-    <!-- /source/js/index.js -->
 </body>
 </html>
