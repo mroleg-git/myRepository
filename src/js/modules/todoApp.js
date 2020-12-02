@@ -12,7 +12,7 @@ export class ToDoApp {
   eventHandler() {
     document
       .querySelector(".js-list-add")
-      .addEventListener("click", this.Form.showForm.bind(this));
+      .addEventListener("click", this.Form.showForm.bind(this.Form)); //
 
     document
       .querySelector(".js-form-submit")

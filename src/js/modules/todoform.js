@@ -1,23 +1,26 @@
 export class ToDoForm {
   thisForm = document.forms.form;
 
-  textInptValid = true;
+  textInptValid = true; //для валидации через oninput
   tAreaInputValid = true;
-  textInputWasChanged = false;
+  textInputWasChanged = false; //для валидации через onchange - не доделал!
   tAreaInputWasChanged = false;
 
   constructor() {}
   init() {
+    //
     this.thisForm.addEventListener("input", this.checkFormInputs.bind(this));
     this.thisForm.addEventListener("change", this.checkFormChanges.bind(this));
   }
   getFormData() {
+    //решил что форма не должна знать id- его добавляет todoApp!
     return {
       task: this.thisForm.task.value,
       discription: this.thisForm.discription.value,
       importance: this.thisForm.importance.checked,
     };
   }
+  //________________________________________________________show/ hide/ clear
   showForm() {
     if (this.thisForm.task.hasAttribute("disabled")) {
       this.thisForm.task.removeAttribute("disabled");
@@ -31,6 +34,7 @@ export class ToDoForm {
   clearForm() {
     this.thisForm.reset();
   }
+  //________________________________________________________isValid
   isValidForm() {
     if (this.textInptValid && this.tAreaInputValid) {
       return true;
@@ -38,23 +42,9 @@ export class ToDoForm {
       return false;
     }
   }
-  checkTextInpChange() {
-    let taskInput = this.thisForm.task;
-    if (this.textInputWasChanged) {
-      if (!this.textInptValid) {
-        taskInput.style.backgroundColor = "red";
-        console.log("input red");
-      } else {
-        taskInput.style.backgroundColor = "white";
-      }
-    } else {
-      console.log("textInputWasChanged " + textInputWasChanged);
-    }
-  }
-  checkTAreaInpChange() {
-    console.log("area change");
-  }
+  //________________________________________________________checkFormChanges
   checkFormChanges(event) {
+    //сделать что бы стартовало после 1го инпута
     switch (event.target.name) {
       case "task":
         this.checkTextInpChange();
@@ -66,6 +56,24 @@ export class ToDoForm {
         break;
     }
   }
+  checkTextInpChange() {
+    let taskInput = this.thisForm.task;
+    //хрень - сделать очистку поля по возращению в него! сейчас это стр 92 / мысль 2.0 - вообще убрать, подсветка по инпуту- в isvalid!!
+    if (this.textInputWasChanged) {
+      if (!this.textInptValid) {
+        taskInput.style.backgroundColor = "red";
+      } else {
+        taskInput.style.backgroundColor = "white";
+      }
+    } else {
+      console.log("textInputWasChanged " + textInputWasChanged); // не сработает - не достижимое условие
+    }
+  }
+  checkTAreaInpChange() {
+    console.log("area has changed"); //затычка в 7 утра
+  }
+  //________________________________________________________checkFormInputs
+
   checkFormInputs(event) {
     switch (event.target.name) {
       case "task":
@@ -81,6 +89,11 @@ export class ToDoForm {
     }
   }
   checkTextInput() {
+    //что бы поле ввода не оставалось красным после возвращения к нему снов - доработать
+    let taskInput = this.thisForm.task;
+    taskInput.style.backgroundColor = "white";
+    //
+
     let taskText = this.thisForm.task.value;
     let inputTaskMark = this.thisForm.querySelector(".js-form-taskvalidmark");
 
