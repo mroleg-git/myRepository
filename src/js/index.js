@@ -1,7 +1,7 @@
-import { ToDoList } from "/gitHabToDo/myRepository/src/js/modules/todolist.js";
+import { ToDoApp } from "/gitHabToDo/myRepository/src/js/modules/todoApp.js";
 
 window.onload = function () {
-  let toDoList = new ToDoList();
+  let toDoList = new ToDoApp();
   toDoList.init();
 };
 

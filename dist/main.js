@@ -104,18 +104,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// export function flogtodo() {
-//   console.log("hello from todo");
-// }
-// export class user {
-//   userName;
-//   constructor() {
-//     this.userName = "username";
-//   }
-//   getUserName() {
-//     return this.userName;
-//   }
-// }
 var ToDo = /*#__PURE__*/function () {
   function ToDo(todo) {
     _classCallCheck(this, ToDo);
@@ -145,6 +133,210 @@ var ToDo = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "../../gitHabToDo/myRepository/src/js/modules/todoform.js":
+/*!***********************************************************!*\
+  !*** /gitHabToDo/myRepository/src/js/modules/todoform.js ***!
+  \***********************************************************/
+/*! exports provided: ToDoForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToDoForm", function() { return ToDoForm; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ToDoForm = /*#__PURE__*/function () {
+  function ToDoForm() {
+    _classCallCheck(this, ToDoForm);
+
+    _defineProperty(this, "thisForm", document.forms.form);
+
+    _defineProperty(this, "textInptValid", true);
+
+    _defineProperty(this, "tAreaInputValid", true);
+
+    _defineProperty(this, "textInputWasChanged", false);
+
+    _defineProperty(this, "tAreaInputWasChanged", false);
+  }
+
+  _createClass(ToDoForm, [{
+    key: "init",
+    value: function init() {
+      this.thisForm.addEventListener("input", this.checkFormInputs.bind(this));
+      this.thisForm.addEventListener("change", this.checkFormChanges.bind(this));
+    }
+  }, {
+    key: "getFormData",
+    value: function getFormData() {
+      return {
+        task: this.thisForm.task.value,
+        discription: this.thisForm.discription.value,
+        importance: this.thisForm.importance.checked
+      };
+    }
+  }, {
+    key: "showForm",
+    value: function showForm() {
+      if (this.thisForm.task.hasAttribute("disabled")) {
+        this.thisForm.task.removeAttribute("disabled");
+      }
+    }
+  }, {
+    key: "hideForm",
+    value: function hideForm() {
+      if (!this.thisForm.task.hasAttribute("disabled")) {
+        this.thisForm.task.setAttribute("disabled", "disabled");
+      }
+    }
+  }, {
+    key: "clearForm",
+    value: function clearForm() {
+      this.thisForm.reset();
+    }
+  }, {
+    key: "isValidForm",
+    value: function isValidForm() {
+      if (this.textInptValid && this.tAreaInputValid) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "checkTextInpChange",
+    value: function checkTextInpChange() {
+      var taskInput = thisForm.task;
+
+      if (this.textInputWasChanged) {
+        if (!this.textInptValid) {
+          taskInput.style.backgroundColor = "red";
+          console.log("input red");
+        } else {
+          taskInput.style.backgroundColor = "white";
+        }
+      } else {
+        console.log("textInputWasChanged " + textInputWasChanged);
+      }
+    }
+  }, {
+    key: "checkTAreaInpChange",
+    value: function checkTAreaInpChange() {
+      console.log("area change");
+    }
+  }, {
+    key: "checkFormChanges",
+    value: function checkFormChanges(event) {
+      switch (event.target.name) {
+        case "task":
+          this.checkTextInpChange();
+          break;
+
+        case "discription":
+          this.checkTAreaInpChange();
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, {
+    key: "checkFormInputs",
+    value: function checkFormInputs(event) {
+      switch (event.target.name) {
+        case "task":
+          this.checkTextInput();
+          this.textInputWasChanged = true;
+          break;
+
+        case "discription":
+          this.checkTAreaInput();
+          this.tAreaInputWasChanged = true;
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, {
+    key: "checkTextInput",
+    value: function checkTextInput() {
+      var taskText = this.thisForm.task.value;
+      var inputTaskMark = this.thisForm.querySelector(".js-form-taskvalidmark");
+
+      if (taskText.indexOf(" ") == 0) {
+        inputTaskMark.innerHTML = "*Задача не может начинаться символом 'пробел'!";
+        inputTaskMark.style.color = "red";
+        this.textInptValid = false;
+        return;
+      }
+
+      if (taskText.length < 4) {
+        inputTaskMark.innerHTML = "*Задача не может быть короче четырех символов!";
+        inputTaskMark.style.color = "red";
+        this.textInptValid = false;
+        return;
+      }
+
+      if (taskText.length > 40) {
+        var counter = taskText.length - 40;
+        inputTaskMark.innerHTML = "*Превышена максимальная длина на " + counter + " символов!";
+        inputTaskMark.style.color = "red";
+        this.textInptValid = false;
+        return;
+      }
+
+      inputTaskMark.innerHTML = "*Обязательное поле.";
+      inputTaskMark.style.color = "black";
+      this.textInptValid = true;
+      return;
+    }
+  }, {
+    key: "checkTAreaInput",
+    value: function checkTAreaInput() {
+      var taskDiscriprion = this.thisForm.task.value;
+      var inputDiscriprionMark = this.thisForm.querySelector(".js-form-discriptionvalidmark");
+
+      if (taskDiscriprion.indexOf(" ") == 0) {
+        inputDiscriprionMark.innerHTML = "*Описание не может начинаться символом 'пробел'!";
+        inputDiscriprionMark.style.color = "red";
+        this.tAreaInputValid = false;
+        return;
+      }
+
+      if (taskDiscriprion.length < 4) {
+        inputDiscriprionMark.innerHTML = "*Описание не может быть короче четырех символов!";
+        inputDiscriprionMark.style.color = "red";
+        this.tAreaInputValid = false;
+        return;
+      }
+
+      if (taskDiscriprion.length > 250) {
+        var counter = taskDiscriprion.length - 250;
+        inputDiscriprionMark.innerHTML = "*Описание максимальная длина на " + counter + " символов!";
+        inputDiscriprionMark.style.color = "red";
+        this.tAreaInputValid = false;
+        return;
+      }
+
+      inputDiscriprionMark.innerHTML = "*Обязательное поле";
+      inputDiscriprionMark.style.color = "black";
+      this.tAreaInputValid = true;
+      return;
+    }
+  }]);
+
+  return ToDoForm;
+}();
+
+/***/ }),
+
 /***/ "../../gitHabToDo/myRepository/src/js/modules/todolist.js":
 /*!***********************************************************!*\
   !*** /gitHabToDo/myRepository/src/js/modules/todolist.js ***!
@@ -156,91 +348,133 @@ var ToDo = /*#__PURE__*/function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToDoList", function() { return ToDoList; });
 /* harmony import */ var _gitHabToDo_myRepository_src_js_modules_todo_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! /gitHabToDo/myRepository/src/js/modules/todo.js */ "../../gitHabToDo/myRepository/src/js/modules/todo.js");
+/* harmony import */ var _gitHabToDo_myRepository_src_js_modules_todoform_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! /gitHabToDo/myRepository/src/js/modules/todoform.js */ "../../gitHabToDo/myRepository/src/js/modules/todoform.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 // export { flogtodo } from "./todo.js";
-// import { user } from "./todo.js";
-// export class man {
-//   lastname = "";
-//   constructor() {
-//     this.lastname = "userlastname";
-//   }
-//   getInfo() {
-//     let person = new user();
-//     return this.lastname + " _ " + person.getUserName();
-//   }
-// }
+
 
 var ToDoList = /*#__PURE__*/function () {
+  //toDoForm = document.forms.form;
   function ToDoList(event) {
     _classCallCheck(this, ToDoList);
-
-    _defineProperty(this, "toDoForm", document.forms.form);
 
     this.toDos = [];
     this.lastId = 0;
     this.toDoList = document.querySelector(".js-todo-list");
+    this.Form = new _gitHabToDo_myRepository_src_js_modules_todoform_js__WEBPACK_IMPORTED_MODULE_1__["ToDoForm"]();
+    this.Form.init();
   }
 
   _createClass(ToDoList, [{
     key: "eventHandler",
     value: function eventHandler() {
-      document.querySelector(".js-list-add").addEventListener("click", this.showForm.bind(this));
+      document.querySelector(".js-list-add").addEventListener("click", this.Form.showForm.bind(this));
       document.querySelector(".js-form-submit").addEventListener("click", this.createToDo.bind(this));
-      this.toDoList.addEventListener("click", this.toDoEventHandler.bind(this));
+      this.toDoList.addEventListener("click", this.toDoEventHandler.bind(this)); //this.toDoForm.addEventListener("input", this.checkChangeForm.bind(this)); //change
     }
   }, {
     key: "init",
     value: function init() {
       this.eventHandler(); //this.hideForm();
-    }
-  }, {
-    key: "getFormData",
-    value: function getFormData() {
-      var data = {
-        task: this.toDoForm.task.value,
-        discription: this.toDoForm.discription.value,
-        importance: this.toDoForm.importance.checked,
-        id: this.lastId
-      };
-      this.clearForm(); //this.hideForm();
+    } // getDataForm() {
+    //   let data = {
+    //     task: this.toDoForm.task.value,
+    //     discription: this.toDoForm.discription.value,
+    //     importance: this.toDoForm.importance.checked,
+    //     id: this.lastId,
+    //   };
+    //   //this.hideForm();
+    //   return data;
+    // }
+    // showForm() {
+    //   if (this.toDoForm.task.hasAttribute("disabled")) {
+    //     this.toDoForm.task.removeAttribute("disabled");
+    //   }
+    // }
+    // hideForm() {
+    //   if (!this.toDoForm.task.hasAttribute("disabled")) {
+    //     this.toDoForm.task.setAttribute("disabled", "disabled");
+    //   }
+    // }
+    // clearForm() {
+    //   this.toDoForm.reset();
+    // }
+    // isValidForm() {
+    //   let formObj = this.getDataForm();
+    //   if (formObj.task && formObj.discription) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
+    // checkChangeForm(event) {
+    //   switch (event.target.name) {
+    //     case "task":
+    //       this.checkTaskInput();
+    //       break;
+    //     case "discription":
+    //       this.checkDiskriptionkInput();
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // }
+    // checkTaskInput() {
+    //   let task = this.toDoForm.task.value;
+    //   let inputTask = this.toDoForm.querySelector(".js-form-taskvalidmark");
+    //   if (task.indexOf(" ") == 0) {
+    //     inputTask.innerHTML = "*Задача не может начинаться символом ' '(пробел)!";
+    //     inputTask.style.color = "red";
+    //     return;
+    //   }
+    //   if (task.length > 40) {
+    //     let counter = task.length - 40;
+    //     inputTask.innerHTML =
+    //       "*Превышена максимальная длина на " + counter + " символов!";
+    //     inputTask.style.color = "red";
+    //   } else {
+    //     inputTask.innerHTML = "*поле обязательно для заполнения";
+    //     inputTask.style.color = "black";
+    //   }
+    //   // if (task.length < 4) {
+    //   //   inputTask.innerHTML = "*Задача не должна быть короче четырех символов";
+    //   //   inputTask.style.color = "red";
+    //   // }
+    //   // if (task.length >= 4) {
+    //   //   inputTask.innerHTML = "*";
+    //   //   inputTask.style.color = "black";
+    //   // }
+    // }
+    // checkDiskriptionkInput() {
+    //   console.log(this.toDoForm.discription.value);
+    //   return true;
+    // }
 
-      return data;
-    }
-  }, {
-    key: "showForm",
-    value: function showForm() {
-      if (this.toDoForm.task.hasAttribute("disabled")) {
-        this.toDoForm.task.removeAttribute("disabled");
-      }
-    }
-  }, {
-    key: "hideForm",
-    value: function hideForm() {
-      if (!this.toDoForm.task.hasAttribute("disabled")) {
-        this.toDoForm.task.setAttribute("disabled", "disabled");
-      }
-    }
-  }, {
-    key: "clearForm",
-    value: function clearForm() {
-      this.toDoForm.reset();
-    }
   }, {
     key: "createToDo",
     value: function createToDo(event) {
-      event.preventDefault();
-      var todo = new _gitHabToDo_myRepository_src_js_modules_todo_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](this.getFormData());
-      this.printTodo(todo);
-      todo.el = this.getToDoById(this.lastId);
-      this.lastId++;
-      this.toDos.push(todo); //console.log(this.toDos);
+      event.preventDefault(); //if (this.isValidForm()) {
+
+      if (this.Form.isValidForm()) {
+        //let todo = new ToDo(this.getDataForm()); //не верно- создать объект из формы get, присвоить поле id=lastid, отправить в конструктор
+        var formData = this.Form.getFormData();
+        formData["id"] = this.lastId;
+        var todo = new _gitHabToDo_myRepository_src_js_modules_todo_js__WEBPACK_IMPORTED_MODULE_0__["ToDo"](formData);
+        this.Form.clearForm();
+        this.printTodo(todo);
+        todo.el = this.getToDoById(this.lastId);
+        this.lastId++;
+        this.toDos.push(todo);
+        debugger;
+      } else {
+        console.log("form is not valid!");
+      } //console.log(this.toDos);
+
     }
   }, {
     key: "printTodo",
@@ -303,18 +537,10 @@ var ToDoList = /*#__PURE__*/function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gitHabToDo_myRepository_src_js_modules_todolist_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! /gitHabToDo/myRepository/src/js/modules/todolist.js */ "../../gitHabToDo/myRepository/src/js/modules/todolist.js");
-// console.log("index");
-// import {
-//   man,
-//   flogtodo,
-// } from "/gitHabToDo/myRepository/src/js/modules/todolist.js";
-// flogtodo();
-// let persone = new man();
-// console.log(persone.getInfo());
 
 
 window.onload = function () {
-  toDoList = new _gitHabToDo_myRepository_src_js_modules_todolist_js__WEBPACK_IMPORTED_MODULE_0__["ToDoList"]();
+  var toDoList = new _gitHabToDo_myRepository_src_js_modules_todolist_js__WEBPACK_IMPORTED_MODULE_0__["ToDoList"]();
   toDoList.init();
 }; // class ToDo {
 //   el = null;
