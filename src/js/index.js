@@ -1,5 +1,5 @@
 import { ToDoApp } from "/gitHabToDo/myRepository/src/js/modules/todoApp.js";
-
+import "../css/todo.css";
 window.onload = function () {
   let toDoList = new ToDoApp();
   toDoList.init();

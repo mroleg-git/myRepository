@@ -30,6 +30,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   plugins: [
@@ -39,6 +43,7 @@ module.exports = {
     }),
   ],
   devServer: {
+    hot: true,
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9000,
