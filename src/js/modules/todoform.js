@@ -1,160 +1,151 @@
 export class ToDoForm {
   thisForm = document.forms.form;
+  submitedWithoutValidation;
 
-  textInptValid = true; //для валидации через oninput
-  tAreaInputValid = true;
-  textInputWasChanged = false; //для валидации через onchange - не доделал!
-  tAreaInputWasChanged = false;
-
-  constructor() {}
-  init() {
-    //
-    this.thisForm.addEventListener("input", this.checkFormInputs.bind(this));
-    this.thisForm.addEventListener("change", this.checkFormChanges.bind(this));
+  constructor() {
+    this.formDefaults();
+    this.onInputFormHendler = this.listenInputFields.bind(this);
   }
+
+  addEventListeners() {
+    this.thisForm.addEventListener("input", this.onInputFormHendler);
+    // this.thisForm.addEventListener("input", this.listenInputFields.bind(this));
+    //this.thisForm.addEventListener("change", this.checkFormChanges.bind(this));
+  }
+  init() {
+    this.addEventListeners();
+  }
+
+  removeIventListeners() {
+    this.thisForm.removeEventListener("input", this.onInputFormHendler);
+  }
+  formDefaults() {
+    this.submitedWithoutValidation = true;
+  }
+  clearForm() {
+    this.thisForm.reset();
+    this.formDefaults();
+    this.removeIventListeners();
+  }
+
   getFormData() {
-    //решил что форма не должна знать id- его добавляет todoApp!
     return {
       task: this.thisForm.task.value,
       discription: this.thisForm.discription.value,
       importance: this.thisForm.importance.checked,
     };
   }
-  //________________________________________________________show/ hide/ clear
-  showForm() {
-    if (this.thisForm.task.hasAttribute("disabled")) {
-      this.thisForm.task.removeAttribute("disabled");
-    }
-  }
-  hideForm() {
-    if (!this.thisForm.task.hasAttribute("disabled")) {
-      this.thisForm.task.setAttribute("disabled", "disabled");
-    }
-  }
-  clearForm() {
-    this.thisForm.reset();
-  }
-  //________________________________________________________isValid
-  isValidForm() {
-    if (this.textInptValid && this.tAreaInputValid) {
+
+  //----------------------------------------------------V-oninput-V----------------------------------------------------
+  checkValidForm() {
+    if (this.taskValidator() && this.discriptionValidator()) {
       return true;
     } else {
       return false;
     }
   }
-  //________________________________________________________checkFormChanges
-  checkFormChanges(event) {
-    //сделать что бы стартовало после 1го инпута
+  //----------------------------------------------------oninput----------------------------------------------------
+  listenInputFields(event) {
     switch (event.target.name) {
       case "task":
-        this.checkTextInpChange();
+        this.taskValidator();
         break;
       case "discription":
-        this.checkTAreaInpChange();
+        this.discriptionValidator();
         break;
       default:
         break;
     }
   }
-  checkTextInpChange() {
-    let taskInput = this.thisForm.task;
-    //хрень - сделать очистку поля по возращению в него! сейчас это стр 92 / мысль 2.0 - вообще убрать, подсветка по инпуту- в isvalid!!
-    if (this.textInputWasChanged) {
-      if (!this.textInptValid) {
-        taskInput.style.backgroundColor = "red";
-      } else {
-        taskInput.style.backgroundColor = "white";
-      }
-    } else {
-      console.log("textInputWasChanged " + textInputWasChanged); // не сработает - не достижимое условие
-    }
+  //----------------------------------------------------check's----------------------------------------------------
+  checkValidFrstChar(innerText) {
+    if (innerText.indexOf(" ") == 0) {
+      return false;
+    } else return true;
   }
-  checkTAreaInpChange() {
-    console.log("area has changed"); //затычка в 7 утра
+  checkMinLength(innerText, minLength) {
+    if (innerText.length < minLength) {
+      return false;
+    } else return true;
   }
-  //________________________________________________________checkFormInputs
-
-  checkFormInputs(event) {
-    switch (event.target.name) {
-      case "task":
-        this.checkTextInput();
-        this.textInputWasChanged = true;
-        break;
-      case "discription":
-        this.checkTAreaInput();
-        this.tAreaInputWasChanged = true;
-        break;
-      default:
-        break;
-    }
+  checkMaxLength(innerText, maxLength) {
+    if (innerText.length > maxLength) {
+      return false;
+    } else return true;
   }
-  checkTextInput() {
+  //----------------------------------------------------reports----------------------------------------------------
+  invalidReportFrstChar(clarificationEl) {
+    clarificationEl.innerHTML = "*Текст не может начинаться символом 'пробел'!";
+    clarificationEl.style.color = "red";
+  }
+  invalidReportMinLength(clarificationEl) {
+    clarificationEl.innerHTML = "*Текст не может быть короче 5 символов!";
+    clarificationEl.style.color = "red";
+  }
+  invalidReportMaxLength(clarificationEl, outOfRange) {
+    clarificationEl.innerHTML =
+      "*Превышена максимальная длина на " + outOfRange + " символов!";
+    clarificationEl.style.color = "red";
+  }
+  taskReportDefault(clarificationEl) {
+    clarificationEl.innerHTML = "*Обязательное поле.";
+    clarificationEl.style.color = "black";
+  }
+  invalidReport() {
+    this.taskValidator();
+    this.discriptionValidator();
+    console.log("form is not valid! massege from to-do-app!");
+  }
+  //----------------------------------------------------validators----------------------------------------------------
+  taskValidator() {
     //что бы поле ввода не оставалось красным после возвращения к нему снов - доработать
-    let taskInput = this.thisForm.task;
-    taskInput.style.backgroundColor = "white";
+    // let taskInputField = this.thisForm.task;
+    // taskInputField.style.backgroundColor = "white";
     //
 
-    let taskText = this.thisForm.task.value;
-    let inputTaskMark = this.thisForm.querySelector(".js-form-taskvalidmark");
+    let taskInnerText = this.thisForm.task.value;
+    let taskClarification = this.thisForm.querySelector(".js-form-taskclarify");
 
-    if (taskText.indexOf(" ") == 0) {
-      inputTaskMark.innerHTML =
-        "*Задача не может начинаться символом 'пробел'!";
-      inputTaskMark.style.color = "red";
-      this.textInptValid = false;
-      return;
+    if (!this.checkValidFrstChar(taskInnerText)) {
+      this.invalidReportFrstChar(taskClarification);
+      return false;
     }
-    if (taskText.length < 4) {
-      inputTaskMark.innerHTML =
-        "*Задача не может быть короче четырех символов!";
-      inputTaskMark.style.color = "red";
-      this.textInptValid = false;
-      return;
+    let lengthLimit = 5;
+    if (!this.checkMinLength(taskInnerText, lengthLimit)) {
+      this.invalidReportMinLength(taskClarification);
+      return false;
     }
-    if (taskText.length > 40) {
-      let counter = taskText.length - 40;
-      inputTaskMark.innerHTML =
-        "*Превышена максимальная длина на " + counter + " символов!";
-      inputTaskMark.style.color = "red";
-      this.textInptValid = false;
-      return;
+    lengthLimit = 40;
+    if (!this.checkMaxLength(taskInnerText, lengthLimit)) {
+      let outOfRange = taskInnerText.length - lengthLimit;
+      this.invalidReportMaxLength(taskClarification, outOfRange);
+      return false;
     }
-    inputTaskMark.innerHTML = "*Обязательное поле.";
-    inputTaskMark.style.color = "black";
-    this.textInptValid = true;
-    return;
+    this.taskReportDefault(taskClarification);
+    return true;
   }
-  checkTAreaInput() {
-    let taskDiscriprion = this.thisForm.discription.value;
-    let inputDiscriprionMark = this.thisForm.querySelector(
-      ".js-form-discriptionvalidmark"
+  discriptionValidator() {
+    let discriprionInnerText = this.thisForm.discription.value;
+    let discriprionClarification = this.thisForm.querySelector(
+      ".js-form-discriptionclarify"
     );
 
-    if (taskDiscriprion.indexOf(" ") == 0) {
-      inputDiscriprionMark.innerHTML =
-        "*Описание не может начинаться символом 'пробел'!";
-      inputDiscriprionMark.style.color = "red";
-      this.tAreaInputValid = false;
-      return;
+    if (!this.checkValidFrstChar(discriprionInnerText)) {
+      this.invalidReportFrstChar(discriprionClarification);
+      return false;
     }
-    if (taskDiscriprion.length < 4) {
-      inputDiscriprionMark.innerHTML =
-        "*Описание не может быть короче четырех символов!";
-      inputDiscriprionMark.style.color = "red";
-      this.tAreaInputValid = false;
-      return;
+    let lengthLimit = 5;
+    if (!this.checkMinLength(discriprionInnerText, lengthLimit)) {
+      this.invalidReportMinLength(discriprionClarification);
+      return false;
     }
-    if (taskDiscriprion.length > 250) {
-      let counter = taskDiscriprion.length - 250;
-      inputDiscriprionMark.innerHTML =
-        "*Описание максимальная длина на " + counter + " символов!";
-      inputDiscriprionMark.style.color = "red";
-      this.tAreaInputValid = false;
-      return;
+    lengthLimit = 250;
+    if (!this.checkMaxLength(discriprionInnerText, lengthLimit)) {
+      let outOfRange = discriprionInnerText.length - lengthLimit;
+      this.invalidReportMaxLength(discriprionClarification, outOfRange);
+      return false;
     }
-    inputDiscriprionMark.innerHTML = "*Обязательное поле";
-    inputDiscriprionMark.style.color = "black";
-    this.tAreaInputValid = true;
-    return;
+    this.taskReportDefault(discriprionClarification);
+    return true;
   }
 }

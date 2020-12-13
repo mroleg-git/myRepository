@@ -23,25 +23,27 @@
             </ul>
         </div>
         <div class="todolist__menu">
-            <button class="todolist__button todolist__button--add js-list-add">add task</button>
+            <!-- <button class="todolist__button todolist__button--add js-list-add">add task</button> -->
             <button class="todolist__button todolist__button--clear">clear all</button>
         </div>
     </div>
     <div class="wraper">
         <form class="form" action="#" method="GET" name="form" enctype="multipart/form-data" >
-            <div class="form__exit">
+            <!-- <div class="form__exit">
                 <input class="form__button form__button--cancel" type="button" value="Сancel">
-            </div>
+            </div> -->
             <div class="form__element">
-                <input class="form__textinput" type="text" name="task" id="" placeholder="Задание" autofocus tabindex="1">
+                <input class="form__textinput" type="text" name="task" id="" placeholder="Задание" autofocus tabindex="1" autocomplete="off">
                 <br>
-                <span class="form__mark form__mark--task js-form-taskvalidmark">Обязательное поле.</span>
+                <span class="form__clarify form__clarify--task js-form-taskclarify">*Обязательное поле.</span>
             </div>
+            
             <div class="form__element">
                 <textarea class="form__textarea" name="discription" id="" placeholder="Описание" tabindex="2"></textarea>
                 <br>
-                <span class="form__mark form__mark--task js-form-discriptionvalidmark">*Обязательное поле.</span>
+                <span class="form__clarify form__clarify--discription js-form-discriptionclarify">*Обязательное поле.</span>
             </div>
+
             <div class="form__element">
                 <label class="form__explaintext form__explaintext--importance">
                     Галочка, если важное:

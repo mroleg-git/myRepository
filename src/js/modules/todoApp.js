@@ -1,19 +1,16 @@
 import { ToDo } from "/gitHabToDo/myRepository/src/js/modules/todo.js";
 import { ToDoForm } from "/gitHabToDo/myRepository/src/js/modules/todoform.js";
 export class ToDoApp {
-  //toDoForm = document.forms.form;
   constructor(event) {
-    this.toDos = [];
     this.lastId = 0;
+    this.toDos = [];
+
     this.toDoList = document.querySelector(".js-todo-list");
+
     this.Form = new ToDoForm();
-    this.Form.init();
+    //this.Form.init();
   }
   eventHandler() {
-    document
-      .querySelector(".js-list-add")
-      .addEventListener("click", this.Form.showForm.bind(this.Form)); //
-
     document
       .querySelector(".js-form-submit")
       .addEventListener("click", this.createToDo.bind(this));
@@ -26,18 +23,21 @@ export class ToDoApp {
 
   createToDo(event) {
     event.preventDefault();
-    if (this.Form.isValidForm()) {
-      //let todo = new ToDo(this.getDataForm()); //не верно- создать объект из формы get, присвоить поле id=lastid, отправить в конструктор
+    if (this.Form.submitedWithoutValidation) {
+      this.Form.init();
+    }
+    if (this.Form.checkValidForm()) {
       let formData = this.Form.getFormData();
       formData["id"] = this.lastId;
       let todo = new ToDo(formData);
       this.Form.clearForm();
+
       this.printTodo(todo);
       todo.el = this.getToDoById(this.lastId);
       this.lastId++;
       this.toDos.push(todo);
     } else {
-      console.log("form is not valid! massege from to-do-app!");
+      this.Form.invalidReport();
     }
   }
   printTodo(todo) {
@@ -57,11 +57,12 @@ export class ToDoApp {
     let eventSender = event.target;
     if (eventSender.classList.contains("js-deletetodo-btn")) {
       this.deleteToDo(eventSender);
-    } else if (eventSender.classList.contains("js-edittodo-btn")) {
-      console.log("edit");
-    } else if (eventSender.classList.contains("js-addtodo-btn")) {
-      console.log("add");
     }
+    // else if (eventSender.classList.contains("js-edittodo-btn")) {
+    //   console.log("edit");
+    // } else if (eventSender.classList.contains("js-addtodo-btn")) {
+    //   console.log("add");
+    // }
   }
   deleteToDo(eventSender) {
     let elem = this.getToDoById(eventSender.dataset.deleteid);
