@@ -8,53 +8,74 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="todolist">
-        <div class="todolist__title">
-            <H2 class="todolist__titletext">To- Do list</H2>
-        </div>
-        <div class="todo">
-            <ul class="todo__list js-todo-list">
-                <!-- <li class="todo__item">
-                    <button class="todo__button todo__button--delete"></button>
-                    <button class="todo__button todo__button--edit"></button>
-                    <button class="todo__button todo__button--add"></button>
-                    <span class="todo__text"></span>
-                </li> -->
-            </ul>
-        </div>
-        <div class="todolist__menu">
-            <!-- <button class="todolist__button todolist__button--add js-list-add">add task</button> -->
-            <button class="todolist__button todolist__button--clear">clear all</button>
-        </div>
-    </div>
-    <div class="wraper">
-        <form class="form" action="#" method="GET" name="form" enctype="multipart/form-data" >
-            <!-- <div class="form__exit">
-                <input class="form__button form__button--cancel" type="button" value="Сancel">
-            </div> -->
-            <div class="form__element">
-                <input class="form__textinput" type="text" name="task" id="" placeholder="Задание" autofocus tabindex="1" autocomplete="off">
-                <br>
-                <span class="form__clarify form__clarify--task js-form-taskclarify">*Обязательное поле.</span>
-            </div>
+
+    <div class="todowraper">
+        <div class="todoflexcontainer">
             
-            <div class="form__element">
-                <textarea class="form__textarea" name="discription" id="" placeholder="Описание" tabindex="2"></textarea>
-                <br>
-                <span class="form__clarify form__clarify--discription js-form-discriptionclarify">*Обязательное поле.</span>
+            <div class="title">
+                <h3 class="title__text">To- Do list</h3>
             </div>
 
-            <div class="form__element">
-                <label class="form__explaintext form__explaintext--importance">
-                    Галочка, если важное:
-                    <input class="form__checkbox" type="checkbox" name="importance" id="" checked tabindex="3">
-                </label>
+            <div class="todo">
+                <ul class="todo__list js-todo-list">
+                    <!-- <li class="todo__item js-todo-elem" data-todoid="100">
+                        <span class="todo__text js-todo-tasktext">task some text</span>
+                        <button class="todo__button todo__button--delete js-deletetodo-btn" data-deleteid="100"></button>
+                        
+                        <ul>
+                            <li>
+                                <span class="todo__text todo__text--discription js-todo-discriptiontext">task some discription text</span>
+                            </li>
+                        </ul>
+                        
+                    </li> -->
+                </ul>
+                <button class="todo__button todo__button--clear js-deletetodo-all">clear all</button>
             </div>
-            <div class="form__element">
-                <input class="form__button form__button--submit js-form-submit" type="submit" value="Create" tabindex="4">
-                <input class="form__button form__button--reset" type="reset" value="Reset" tabindex="5">
+            
+            <div class="footer">
+                <h3 class="footer__text"><span class="footertextdec">delete:</span> to delete this todo<br>
+                    <span class="footertextdec">clearAll:</span> to delete all todo's<br>
+                </h3>
             </div>
-        </form>
+
+        </div>
+    </div>
+
+    <!-- <div style="background-color: greenyellow; position: absolute; top: 10px; left: 50%; width: 25px; height: 25px;"></div> -->
+
+    <div class="wraper">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+                <span></span>
+        </label>
+        <div class="formwraper">
+            <form class="form" action="#" method="GET" name="form" enctype="multipart/form-data" >
+                <!--  -->
+                <div class="title">
+                    <h3 class="title__text">Create to-do</h3>
+                </div>
+                <!--  -->
+                <div class="form__element">
+                    <span class="form__clarify form__clarify--task js-form-taskclarify">*Обязательное поле.</span>
+                    <input class="form__textinput" type="text" name="task" id="" placeholder="Задание" autofocus tabindex="1" autocomplete="off">
+                </div>
+
+                <div class="form__element">
+                    <textarea class="form__textarea" name="discription" id="" placeholder="Описание" tabindex="2"></textarea>
+                    <span class="form__clarify form__clarify--discription js-form-discriptionclarify">*Обязательное поле.</span>
+                </div>
+                <div class="form__element">
+                    <label class="form__explaintext form__explaintext--importance">
+                        Галочка, если важное:
+                        <input class="form__checkbox" type="checkbox" name="importance" id="" checked tabindex="5">
+                    </label>
+                    
+                    <input class="form__button form__button--submit js-form-submit" type="submit" value="Create" tabindex="3">
+                    <input class="form__button form__button--reset" type="reset" value="Reset" tabindex="4">
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>

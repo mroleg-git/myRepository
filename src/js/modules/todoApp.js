@@ -8,7 +8,6 @@ export class ToDoApp {
     this.toDoList = document.querySelector(".js-todo-list");
 
     this.Form = new ToDoForm();
-    //this.Form.init();
   }
   eventHandler() {
     document
@@ -16,6 +15,10 @@ export class ToDoApp {
       .addEventListener("click", this.createToDo.bind(this));
 
     this.toDoList.addEventListener("click", this.toDoEventHandler.bind(this));
+
+    document
+      .querySelector(".js-deletetodo-all")
+      .addEventListener("click", this.clearAllToDos.bind(this));
   }
   init() {
     this.eventHandler();
@@ -44,7 +47,7 @@ export class ToDoApp {
     this.toDoList.insertAdjacentHTML("afterbegin", todo.ToDoHtml());
   }
   getToDoById(id) {
-    let allToDo = document.querySelectorAll(".todo__item");
+    let allToDo = document.querySelectorAll(".js-todo-elem");
     let toDoListElement;
     allToDo.forEach((element) => {
       if (element.dataset.todoid == id) {
@@ -74,78 +77,12 @@ export class ToDoApp {
       return item.id != id;
     });
   }
+  clearAllToDos() {
+    console.log("clear all");
+    let allToDo = document.querySelectorAll(".js-todo-elem");
+    for (let elem of allToDo) {
+      elem.remove();
+    }
+    this.toDos.length = 0;
+  }
 }
-//на всякий
-// getDataForm() {
-//   let data = {
-//     task: this.toDoForm.task.value,
-//     discription: this.toDoForm.discription.value,
-//     importance: this.toDoForm.importance.checked,
-//     id: this.lastId,
-//   };
-//   //this.hideForm();
-//   return data;
-// }
-// showForm() {
-//   if (this.toDoForm.task.hasAttribute("disabled")) {
-//     this.toDoForm.task.removeAttribute("disabled");
-//   }
-// }
-// hideForm() {
-//   if (!this.toDoForm.task.hasAttribute("disabled")) {
-//     this.toDoForm.task.setAttribute("disabled", "disabled");
-//   }
-// }
-// clearForm() {
-//   this.toDoForm.reset();
-// }
-// isValidForm() {
-//   let formObj = this.getDataForm();
-//   if (formObj.task && formObj.discription) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-// checkChangeForm(event) {
-//   switch (event.target.name) {
-//     case "task":
-//       this.checkTaskInput();
-//       break;
-//     case "discription":
-//       this.checkDiskriptionkInput();
-//       break;
-//     default:
-//       break;
-//   }
-// }
-// checkTaskInput() {
-//   let task = this.toDoForm.task.value;
-//   let inputTask = this.toDoForm.querySelector(".js-form-taskvalidmark");
-//   if (task.indexOf(" ") == 0) {
-//     inputTask.innerHTML = "*Задача не может начинаться символом ' '(пробел)!";
-//     inputTask.style.color = "red";
-//     return;
-//   }
-//   if (task.length > 40) {
-//     let counter = task.length - 40;
-//     inputTask.innerHTML =
-//       "*Превышена максимальная длина на " + counter + " символов!";
-//     inputTask.style.color = "red";
-//   } else {
-//     inputTask.innerHTML = "*поле обязательно для заполнения";
-//     inputTask.style.color = "black";
-//   }
-//   // if (task.length < 4) {
-//   //   inputTask.innerHTML = "*Задача не должна быть короче четырех символов";
-//   //   inputTask.style.color = "red";
-//   // }
-//   // if (task.length >= 4) {
-//   //   inputTask.innerHTML = "*";
-//   //   inputTask.style.color = "black";
-//   // }
-// }
-// checkDiskriptionkInput() {
-//   console.log(this.toDoForm.discription.value);
-//   return true;
-// }

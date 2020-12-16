@@ -76,20 +76,20 @@ export class ToDoForm {
   //----------------------------------------------------reports----------------------------------------------------
   invalidReportFrstChar(clarificationEl) {
     clarificationEl.innerHTML = "*Текст не может начинаться символом 'пробел'!";
-    clarificationEl.style.color = "red";
+    clarificationEl.style.color = "#ff4646";
   }
   invalidReportMinLength(clarificationEl) {
     clarificationEl.innerHTML = "*Текст не может быть короче 5 символов!";
-    clarificationEl.style.color = "red";
+    clarificationEl.style.color = "#ff4646";
   }
   invalidReportMaxLength(clarificationEl, outOfRange) {
     clarificationEl.innerHTML =
       "*Превышена максимальная длина на " + outOfRange + " символов!";
-    clarificationEl.style.color = "red";
+    clarificationEl.style.color = "#ff4646";
   }
   taskReportDefault(clarificationEl) {
     clarificationEl.innerHTML = "*Обязательное поле.";
-    clarificationEl.style.color = "black";
+    clarificationEl.style.color = "rgb(143, 141, 145)";
   }
   invalidReport() {
     this.taskValidator();
@@ -115,7 +115,7 @@ export class ToDoForm {
       this.invalidReportMinLength(taskClarification);
       return false;
     }
-    lengthLimit = 40;
+    lengthLimit = 50;
     if (!this.checkMaxLength(taskInnerText, lengthLimit)) {
       let outOfRange = taskInnerText.length - lengthLimit;
       this.invalidReportMaxLength(taskClarification, outOfRange);
@@ -139,7 +139,7 @@ export class ToDoForm {
       this.invalidReportMinLength(discriprionClarification);
       return false;
     }
-    lengthLimit = 250;
+    lengthLimit = 350;
     if (!this.checkMaxLength(discriprionInnerText, lengthLimit)) {
       let outOfRange = discriprionInnerText.length - lengthLimit;
       this.invalidReportMaxLength(discriprionClarification, outOfRange);
