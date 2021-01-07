@@ -5,6 +5,75 @@ window.onload = function () {
   toDoList.init();
 };
 
+// let sm = 0;
+// function f(
+//   sm = 1,
+//   fx = () => {
+//     console.log(sm);
+//   }
+// ) {
+//   var sm = 2;
+//   fx();
+// }
+// f();
+
+// function remember(routes) {
+//   let start = findeStart(routes);
+//   return sortArrs(start, routes);
+// }
+
+// function findeStart(srcArr) {
+//   for (let i = 0; i < srcArr.length; i++) {
+//     let c = 0;
+//     for (let j = 0; j < srcArr.length; j++) {
+//       if (!(srcArr[i][0].indexOf(srcArr[j][1]) + 1)) {
+//         c++;
+//       }
+//     }
+//     if (c == srcArr.length) {
+//       return srcArr[i];
+//     }
+//   }
+// }
+// function sortArrs(start, srcArr) {
+//   let mas = [];
+//   mas[0] = start;
+//   for (let j = 0; j < srcArr.length; j++) {
+//     for (let i = 0; i < srcArr.length; i++) {
+//       if (start[1] == srcArr[i][0]) {
+//         mas[j + 1] = srcArr[i];
+//         start = srcArr[i];
+//         break;
+//       }
+//     }
+//   }
+//   return mas;
+// }
+// console.log(
+//   remember([
+//     ["mnl", "tag"],
+//     ["ceb", "tac"],
+//     ["tag", "ceb"],
+//     ["tac", "bor"],
+//   ])
+// );
+// console.log(
+//   remember([
+//     ["Chicago", "Winnipeg"],
+//     ["Halifax", "Monreal"],
+//     ["Monreal", "Toronto"],
+//     ["Toronto", "Chicago"],
+//     ["Winnipeg", "Siattle"],
+//   ])
+// );
+// console.log(
+//   remember([
+//     ["USA", "BRA"],
+//     ["JPN", "PHL"],
+//     ["BRA", "UAE"],
+//     ["UAE", "JPN"],
+//   ])
+//);//*/
 // class ToDo {
 //   el = null;
 //   constructor(todo) {
